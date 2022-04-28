@@ -18,11 +18,13 @@
       lib = nixpkgs.lib.extend (final: prev: {
         my = import ./lib {
           lib = final;
+          pkgs = nixpkgs;
           inherit inputs;
         };
       });
     in {
       pkgs = nixpkgs;
+      inherit lib;
       inherit (import ./profiles { inherit lib; }) nixosConfigurations;
     };
 }

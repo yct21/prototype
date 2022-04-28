@@ -9,8 +9,16 @@ in {
     { system ? "x86_64-linux", pkgs ? inputs.nixpkgs }:
     nixosSystem {
       inherit system;
-      # modules = [ inputs.home-manager.nixosModules.home-manager ] ++ modules;
-      modules = [ (import path) ];
+      modules = [
+        ../base
+        inputs.home-manager.nixosModules.home-manager
+        {
+          # nixpkgs.pkgs = pkgs;
+          networking.hostName =
+            mkDefault (removeSuffix ".nix" (baseNameOf path));
+        }
+        (import path)
+      ];
       specialArgs = { inherit lib inputs system; };
     };
 }
