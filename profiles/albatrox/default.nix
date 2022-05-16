@@ -16,6 +16,8 @@
     }];
   };
 
+  networking.hosts = { "124.222.119.178" = [ "penguin.test" ]; };
+
   virtualisation.docker.enable = true;
 
   # k3s
